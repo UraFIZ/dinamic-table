@@ -38,20 +38,17 @@ class Business {
   }
 }
 class UI {
-  constructor() {
-    // this.getFilltred = this.getFilltred.bind(this);
-    this.consoleData = this.consoleData.bind(this);
-  }
-  consoleData(dafta) {
-    console.log(dafta);
-  }
+  // consoleData(dafta) {
+  //   console.log(dafta);
+  // }
   displayData(data) {
-    // if (Storage.getCompany != '') {
-    //   data = Storage.getCompany();
-    //   console.log(data);
-    // }
+    let mmm =
+      JSON.parse(localStorage.getItem('companies')) === null
+        ? data
+        : JSON.parse(localStorage.getItem('companies'));
+    console.log(mmm);
     let result = '';
-    data.forEach(product => {
+    mmm.forEach(product => {
       const { name } = product.company;
       const { city, street, suite } = product.address;
       result += `
@@ -68,6 +65,10 @@ class UI {
     tableBody.innerHTML = result;
   }
   getFilltred(data) {
+    let aaa =
+      JSON.parse(localStorage.getItem('companies')) === null
+        ? data
+        : JSON.parse(localStorage.getItem('companies'));
     trTag.forEach(item => {
       item.addEventListener('click', () => {
         let thisText = item.innerHTML.toLocaleLowerCase().replace(/ +/g, '');
@@ -76,13 +77,12 @@ class UI {
         } else {
           sortDirection = true;
         }
-        console.log(sortDirection);
-        switch (this.getTypeOf(data, item)) {
+        switch (this.getTypeOf(aaa, item)) {
           case 'number':
-            this.sortNumberColumn(data, sortDirection, thisText);
+            this.sortNumberColumn(aaa, sortDirection, thisText);
             break;
           case 'string':
-            this.sortStringColumn(data, sortDirection, thisText);
+            this.sortStringColumn(aaa, sortDirection, thisText);
             break;
         }
       });
@@ -98,9 +98,8 @@ class UI {
     data.sort((a, b) => {
       return isSort ? a[columnN] - b[columnN] : b[columnN] - a[columnN];
     });
-
+    Storage.saveCompany(data);
     this.displayData(data);
-    // Storage.saveCompany(data);
   }
   sortStringColumn(data, isSort, columnN) {
     data.sort((a, b) => {
@@ -120,10 +119,14 @@ class UI {
         }
       }
     });
+    Storage.saveCompany(data);
     this.displayData(data);
-    // Storage.saveCompany(data);
   }
   workingWithModal(data) {
+    let bbb =
+      JSON.parse(localStorage.getItem('companies')) === null
+        ? data
+        : JSON.parse(localStorage.getItem('companies'));
     openModal.addEventListener('click', () => {
       modalContainer.style.display = 'flex';
     });
@@ -132,7 +135,7 @@ class UI {
     });
     submitBtn.addEventListener('click', e => {
       e.preventDefault();
-      let id = 10;
+      let id = Math.round(Math.random() * 15);
       const city = document.querySelector('#city').value;
       const street = document.querySelector('#street').value;
       const suite = document.querySelector('#suite').value;
@@ -164,38 +167,44 @@ class UI {
         submitObj.company['bs'] = bs;
         submitObj.company['name'] = compName;
         submitObj['email'] = email;
-        submitObj['id'] = ++id;
+        submitObj['id'] = id;
         submitObj['name'] = subName;
         submitObj['phone'] = phone;
         submitObj['username'] = userName;
         submitObj['website'] = website;
-        data = [...data, submitObj];
-        console.log(data);
+        bbb = [...bbb, submitObj];
+        console.log(bbb);
         modalContainer.style.display = 'none';
-        this.displayData(data);
-        // Storage.saveCompany(data);
+        Storage.saveCompany(bbb);
+        this.displayData(bbb);
       } else {
         e.preventDefault();
       }
     });
   }
-  deleteCompany(data) {
+  deleteCompany() {
     const deleteBtn = document.querySelectorAll(
       'body > div > table > tbody > tr > td.delete'
     );
     deleteBtn.forEach(item => {
-      item.addEventListener('click', chrc => {
-        const idOfTag = item.parentElement.firstElementChild.textContent;
+      item.addEventListener('click', () => {
+        // const idOfTag = item.parentElement.dataset.id;
         return item.parentElement.remove();
       });
     });
   }
   openModalWithAdditinolInfo(data) {
+    let ccc =
+      JSON.parse(localStorage.getItem('companies')) === null
+        ? data
+        : JSON.parse(localStorage.getItem('companies'));
+    console.log('openModalWithAdditinolInfo ' + ccc);
     const clickablePlices = [
       ...document.querySelectorAll(
-        'body > div > table > tbody > tr:not(:first-child) > td:not(.delete) '
+        'body > div > table > tbody > tr > td:not(.delete) '
       ),
     ];
+    console.log('clickablePlices ' + clickablePlices);
 
     clickablePlices.forEach(item => {
       item.addEventListener('dblclick', () => {
@@ -205,7 +214,7 @@ class UI {
         });
         const idOfAdditinolInfo =
           item.parentElement.firstElementChild.textContent;
-        const currentObjForAdd = data.find(item => {
+        const currentObjForAdd = ccc.find(item => {
           return item['id'] == idOfAdditinolInfo;
         });
         const {
@@ -225,13 +234,11 @@ class Storage {
     localStorage.setItem('companies', JSON.stringify(companies));
   }
   static deleteCompany(id) {
-    let company = JSON.parse(localStorage.getItem('companies'));
-    return products.find(product => product.id === id);
+    let companies = JSON.parse(localStorage.getItem('companies'));
+    return companies.filter(company => company.id === id);
   }
   static getCompany() {
-    return localStorage.getItem('companies')
-      ? JSON.parse(localStorage.getItem('companies'))
-      : '';
+    let bla = JSON.parse(localStorage.getItem('companies'));
   }
 }
 
@@ -239,12 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const business = new Business();
   const ui = new UI();
   business.getBusiness().then(data => {
-    ui.displayData(data.slice(0, 10));
+    ui.displayData(data);
     ui.getFilltred(data);
-    ui.consoleData(data);
     ui.workingWithModal(data);
     ui.deleteCompany(data);
     ui.openModalWithAdditinolInfo(data);
-    // Storage.saveCompany(data);
   });
 });
