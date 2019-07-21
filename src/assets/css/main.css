@@ -1,1 +1,153 @@
 /* Example css file */
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px !important;
+  background: #333;
+}
+
+.wrapper {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+table {
+  width: 100%;
+  border: 0 none;
+  background: white;
+}
+table tr th {
+  background: #61ac27;
+  color: #fff;
+  position: sticky;
+  top: 0;
+}
+table tr th:first-child {
+  background: rgb(68, 131, 21);
+  text-align: center;
+}
+table tr td:nth-child(1) {
+  background: rgb(99, 182, 36);
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+}
+table,
+th,
+td {
+  border: 1px solid #61ac27;
+  border-collapse: collapse;
+}
+body > div > div.modal-content {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+body > div > div > form {
+  display: none;
+  justify-content: center;
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #61ac27;
+  flex-direction: column;
+  box-shadow: 1px -1px 30px 5px blueviolet;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+body > div > div > form > div {
+  width: 20px;
+  margin-left: auto;
+  cursor: pointer;
+  color: red;
+  margin-top: 5px;
+}
+body > div > div.modal-content > form > fieldset > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body > div > div.modal-content > form > fieldset > label > input {
+  width: 200px;
+  height: 20px;
+  padding-left: 5px;
+}
+
+.submit-button {
+  display: flex;
+  width: 140px;
+  margin: 0 auto;
+  cursor: pointer;
+  color: white;
+  background: #8a2be2;
+  border: none;
+  border-radius: 5px;
+  justify-content: center;
+  height: 20px;
+}
+.submit-button:hover {
+  background-color: #ec7ab3;
+}
+body > div > button {
+  padding: 15px;
+  background: #61ac27;
+  margin: 0 auto;
+  display: flex;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+body > div > button:hover {
+  background: blueviolet;
+  color: white;
+  border-radius: 2%;
+}
+body > div > div.additinolInfo {
+  display: none;
+  flex-direction: column;
+  padding: 30px 30px 60px 39px;
+  position: absolute;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #61ac27;
+  box-shadow: 1px -1px 30px 5px blueviolet;
+  color: white;
+  min-width: 250px;
+}
+body > div > div.additinolInfo > div.closeAddinfo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  text-align: center;
+  cursor: pointer;
+  color: red;
+  margin-top: 7px;
+}
+body > div > table > tbody > tr > td.delete {
+  text-align: center;
+  color: red;
+}
+body > div > div.additinolInfo > h2 {
+  text-align: center;
+}
+.addres {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.other {
+  font-weight: bold;
+  text-decoration: underline;
+}

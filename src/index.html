@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Webpack Template</title>
+    <script src="https://kit.fontawesome.com/a295c0b06f.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -21,144 +22,140 @@
         </thead>
         <tbody></tbody>
       </table>
-      <button>Add this fucking shit</button>
+      <button>Add the item</button>
       <div class="modal-content">
         <form method="GET">
-          <div class="close">Close</div>
+          <div class="close"><i class="fas fa-times"></i></div>
           <fieldset>
             <legend>Address:</legend>
-            <label for="city">City<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="city"
-              maxlength="40"
-              name="city"
-              size="20"
-              type="text"
-              required
-            />
+            <label for="city"
+              >City
+              <input
+                id="city"
+                maxlength="40"
+                name="city"
+                size="20"
+                type="text"
+                required
+            /></label>
             <br />
             <label for="street"
-              >Street<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="street"
-              maxlength="40"
-              name="street"
-              size="20"
-              type="text"
-              required
-            />
+              >Street
+              <input
+                id="street"
+                maxlength="40"
+                name="street"
+                size="20"
+                type="text"
+                required
+              />
+            </label>
             <br />
             <label for="street"
-              >Suite<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="suite"
-              maxlength="40"
-              name="suite"
-              size="20"
-              type="text"
-              required
-            />
+              >Suite<input
+                id="suite"
+                maxlength="40"
+                name="suite"
+                size="20"
+                type="text"
+                required
+            /></label>
             <br />
             <label for="zipcode"
-              >Zipcode<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="zipcode"
-              maxlength="40"
-              name="zipcode"
-              size="20"
-              type="number"
-              required
-            />
+              >Zipcode<input
+                id="zipcode"
+                maxlength="40"
+                name="zipcode"
+                size="20"
+                type="number"
+                required
+            /></label>
           </fieldset>
 
           <fieldset>
             <legend>Company:</legend>
             <label for="compName"
-              >Firm name<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="compName"
-              maxlength="40"
-              name="compName"
-              size="20"
-              type="text"
-              required
-            />
+              >Firm name<input
+                id="compName"
+                maxlength="40"
+                name="compName"
+                size="20"
+                type="text"
+                required
+            /></label>
             <br />
-            <label for="bs">Bs<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="bs"
-              maxlength="40"
-              name="bs"
-              size="20"
-              type="text"
-              required
-            />
+            <label for="bs"
+              >Bs<input
+                id="bs"
+                maxlength="40"
+                name="bs"
+                size="20"
+                type="text"
+                required
+            /></label>
           </fieldset>
 
           <fieldset>
             <legend>Another info:</legend>
-            <label for="name">Email<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="email"
-              maxlength="40"
-              name="email"
-              size="20"
-              type="email"
-              required
-            />
+            <label for="name"
+              >Email<input
+                id="email"
+                maxlength="40"
+                name="email"
+                size="20"
+                type="email"
+                required
+            /></label>
             <br />
             <label for="subName"
-              >Name of subject<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="subName"
-              maxlength="40"
-              name="subName"
-              size="20"
-              type="text"
-              required
-            />
+              >Name of subject<input
+                id="subName"
+                maxlength="40"
+                name="subName"
+                size="20"
+                type="text"
+                required
+            /></label>
             <br />
             <label for="phone"
-              >Phone<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="phone"
-              maxlength="40"
-              name="phone"
-              size="20"
-              type="text"
-              required
-            />
+              >Phone
+              <input
+                id="phone"
+                maxlength="40"
+                name="phone"
+                size="20"
+                type="text"
+                required
+            /></label>
             <br />
             <label for="userName"
-              >User name<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="userName"
-              maxlength="40"
-              name="userName"
-              size="20"
-              type="text"
-              required
-            />
+              >User name<input
+                id="userName"
+                maxlength="40"
+                name="userName"
+                size="20"
+                type="text"
+                required
+            /></label>
             <br />
             <label for="website"
-              >Website<span class="req-field">&nbsp;*</span></label
-            ><input
-              id="website"
-              maxlength="40"
-              name="website"
-              size="20"
-              type="text"
-              required
-            />
+              >Website<input
+                id="website"
+                maxlength="40"
+                name="website"
+                size="20"
+                type="text"
+                required
+            /></label>
           </fieldset>
           <button class="submit-button" type="submit">submit</button>
         </form>
       </div>
       <div class="additinolInfo">
-        <div class="closeAddinfo">x</div>
+        <div class="closeAddinfo"><i class="fas fa-times"></i></div>
         <h2>Aditinol info</h2>
-        <div class="address">Address: <span></span></div>
-        <div class="company">Company: <span></span></div>
+        <div class="address"><span class="addres">Address:</span> <span></span></div>
+        <div class="company"><span class="other">Other info</span> <span></span></span>
       </div>
     </div>
   </body>

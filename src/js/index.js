@@ -3,7 +3,7 @@ import { _ } from 'core-js';
 const tableBody = document.querySelector('div > table > tbody');
 const trTag = [...document.querySelector('div > table > thead > tr').children];
 let sortDirection = true;
-const modalContainer = document.querySelector('body > div > div');
+const modalContainer = document.querySelector('body > div > div>form');
 const form = document.querySelector('body > div > div > form');
 const closeBtn = document.querySelector('body > div > div > form > div');
 const submitBtn = document.querySelector('body > div > div > form > button');
@@ -12,10 +12,10 @@ const addititnolInfoModal = document.querySelector(
   'body > div.wrapper > div.additinolInfo'
 );
 const aditinolInfoAddress = document.querySelector(
-  'body > div > div.additinolInfo > div.address > span'
+  'body > div > div.additinolInfo > div.address > span:nth-child(2)'
 );
 const aditinolInfoCompany = document.querySelector(
-  'body > div > div.additinolInfo > div.company'
+  'body > div > div.additinolInfo > div.company > span:nth-child(2)'
 );
 const closeBtnAditinolInfo = document.querySelector(
   'body > div > div.additinolInfo > div.closeAddinfo'
@@ -52,7 +52,7 @@ class UI {
         <td>${product.username}</td>
         <td>${product.email}</td>
         <td>${product.website}</td>
-        <td class="delete">delete</td>
+        <td class="delete"><i class="fas fa-trash"></i></td>
         <tr/>
    `;
     });
@@ -232,7 +232,7 @@ class UI {
           company: { bs },
         } = currentObjForAdd;
         aditinolInfoAddress.innerHTML = ` The current address is following: city ${city} street: ${street} suite: ${suite}  `;
-        aditinolInfoCompany.innerHTML = `Some shit ${bs}`;
+        aditinolInfoCompany.innerHTML = `The following info ${bs}`;
       });
     });
   }
