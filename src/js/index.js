@@ -38,19 +38,13 @@ class Business {
   }
 }
 class UI {
-  // consoleData(dafta) {
-  //   console.log(dafta);
-  // }
   displayData(data) {
     let mmm =
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
         : JSON.parse(localStorage.getItem('companies'));
-    console.log(mmm);
     let result = '';
     mmm.forEach(product => {
-      const { name } = product.company;
-      const { city, street, suite } = product.address;
       result += `
         <tr/>
         <td>${product.id}</td>
@@ -63,6 +57,10 @@ class UI {
    `;
     });
     tableBody.innerHTML = result;
+    this.openModalWithAdditinolInfo(data);
+    this.addNewCompany(data);
+    this.deleteCompany(data);
+    // this.getFilltred(data);
   }
   getFilltred(data) {
     let aaa =
@@ -99,7 +97,9 @@ class UI {
       return isSort ? a[columnN] - b[columnN] : b[columnN] - a[columnN];
     });
     Storage.saveCompany(data);
+    this.openModalWithAdditinolInfo(data);
     this.displayData(data);
+    this.deleteCompany(data);
   }
   sortStringColumn(data, isSort, columnN) {
     data.sort((a, b) => {
@@ -121,8 +121,10 @@ class UI {
     });
     Storage.saveCompany(data);
     this.displayData(data);
+    this.openModalWithAdditinolInfo(data);
+    this.deleteCompany(data);
   }
-  workingWithModal(data) {
+  addNewCompany(data) {
     let bbb =
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
@@ -135,7 +137,7 @@ class UI {
     });
     submitBtn.addEventListener('click', e => {
       e.preventDefault();
-      let id = Math.round(Math.random() * 15);
+      let id = Math.round(Math.random() * 100);
       const city = document.querySelector('#city').value;
       const street = document.querySelector('#street').value;
       const suite = document.querySelector('#suite').value;
@@ -173,23 +175,34 @@ class UI {
         submitObj['username'] = userName;
         submitObj['website'] = website;
         bbb = [...bbb, submitObj];
-        console.log(bbb);
         modalContainer.style.display = 'none';
         Storage.saveCompany(bbb);
         this.displayData(bbb);
+        this.getFilltred(bbb);
       } else {
         e.preventDefault();
       }
     });
   }
-  deleteCompany() {
+  deleteCompany(data) {
+    let zzz =
+      JSON.parse(localStorage.getItem('companies')) === null
+        ? data
+        : JSON.parse(localStorage.getItem('companies'));
     const deleteBtn = document.querySelectorAll(
       'body > div > table > tbody > tr > td.delete'
     );
     deleteBtn.forEach(item => {
       item.addEventListener('click', () => {
-        // const idOfTag = item.parentElement.dataset.id;
-        return item.parentElement.remove();
+        const idOfTag = item.parentElement.firstElementChild.textContent;
+        const currentData = zzz.findIndex(cher => {
+          return cher.id == idOfTag;
+        });
+        zzz = [...zzz.slice(0, currentData), ...zzz.slice(currentData + 1)];
+
+        Storage.saveCompany(zzz);
+        this.displayData(zzz);
+        this.getFilltred(zzz);
       });
     });
   }
@@ -198,14 +211,11 @@ class UI {
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
         : JSON.parse(localStorage.getItem('companies'));
-    console.log('openModalWithAdditinolInfo ' + ccc);
     const clickablePlices = [
       ...document.querySelectorAll(
         'body > div > table > tbody > tr > td:not(.delete) '
       ),
     ];
-    console.log('clickablePlices ' + clickablePlices);
-
     clickablePlices.forEach(item => {
       item.addEventListener('dblclick', () => {
         addititnolInfoModal.style.display = 'flex';
@@ -221,7 +231,6 @@ class UI {
           address: { city, street, suite },
           company: { bs },
         } = currentObjForAdd;
-
         aditinolInfoAddress.innerHTML = ` The current address is following: city ${city} street: ${street} suite: ${suite}  `;
         aditinolInfoCompany.innerHTML = `Some shit ${bs}`;
       });
@@ -237,9 +246,6 @@ class Storage {
     let companies = JSON.parse(localStorage.getItem('companies'));
     return companies.filter(company => company.id === id);
   }
-  static getCompany() {
-    let bla = JSON.parse(localStorage.getItem('companies'));
-  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -248,8 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
   business.getBusiness().then(data => {
     ui.displayData(data);
     ui.getFilltred(data);
-    ui.workingWithModal(data);
+    ui.addNewCompany(data);
     ui.deleteCompany(data);
     ui.openModalWithAdditinolInfo(data);
+    ui.deleteCompany(data);
   });
 });
