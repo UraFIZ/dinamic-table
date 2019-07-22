@@ -151,3 +151,20 @@ body > div > div.additinolInfo > h2 {
   font-weight: bold;
   text-decoration: underline;
 }
+body > div > div.modal-content > form > div.clear {
+  position: absolute;
+  top: 7px;
+  left: 43%;
+  color: black;
+}
+body > div > div.modal-content > form > div.clear:hover::before {
+  content: 'CLEAR';
+  position: absolute;
+  right: 34px;
+}
+body > div > div.modal-content > form > div.shit {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  color: brown;
+}

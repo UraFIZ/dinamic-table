@@ -7,6 +7,9 @@ const modalContainer = document.querySelector('body > div > div>form');
 const form = document.querySelector('body > div > div > form');
 const closeBtn = document.querySelector('body > div > div > form > div');
 const submitBtn = document.querySelector('body > div > div > form > button');
+const clearFormData = document.querySelector(
+  'body > div > div.modal-content > form > div.clear'
+);
 const openModal = document.querySelector('body > div > button');
 const addititnolInfoModal = document.querySelector(
   'body > div.wrapper > div.additinolInfo'
@@ -63,7 +66,7 @@ class UI {
     // this.getFilltred(data);
   }
   getFilltred(data) {
-    let aaa =
+    let dataForFilter =
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
         : JSON.parse(localStorage.getItem('companies'));
@@ -75,12 +78,12 @@ class UI {
         } else {
           sortDirection = true;
         }
-        switch (this.getTypeOf(aaa, item)) {
+        switch (this.getTypeOf(dataForFilter, item)) {
           case 'number':
-            this.sortNumberColumn(aaa, sortDirection, thisText);
+            this.sortNumberColumn(dataForFilter, sortDirection, thisText);
             break;
           case 'string':
-            this.sortStringColumn(aaa, sortDirection, thisText);
+            this.sortStringColumn(dataForFilter, sortDirection, thisText);
             break;
         }
       });
@@ -125,7 +128,7 @@ class UI {
     this.deleteCompany(data);
   }
   addNewCompany(data) {
-    let bbb =
+    let dataForAdding =
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
         : JSON.parse(localStorage.getItem('companies'));
@@ -134,6 +137,19 @@ class UI {
     });
     closeBtn.addEventListener('click', () => {
       modalContainer.style.display = 'none';
+    });
+    clearFormData.addEventListener('click', () => {
+      city.value = '';
+      street.value = '';
+      suite.value = '';
+      zipcode.value = '';
+      compName.value = '';
+      bs.value = '';
+      email.value = '';
+      subName.value = '';
+      phone.value = '';
+      userName.value = '';
+      website.value = '';
     });
     submitBtn.addEventListener('click', e => {
       e.preventDefault();
@@ -174,18 +190,18 @@ class UI {
         submitObj['phone'] = phone;
         submitObj['username'] = userName;
         submitObj['website'] = website;
-        bbb = [...bbb, submitObj];
+        dataForAdding = [...dataForAdding, submitObj];
         modalContainer.style.display = 'none';
-        Storage.saveCompany(bbb);
-        this.displayData(bbb);
-        this.getFilltred(bbb);
+        Storage.saveCompany(dataForAdding);
+        this.displayData(dataForAdding);
+        this.getFilltred(dataForAdding);
       } else {
         e.preventDefault();
       }
     });
   }
   deleteCompany(data) {
-    let zzz =
+    let dataForDelete =
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
         : JSON.parse(localStorage.getItem('companies'));
@@ -195,19 +211,22 @@ class UI {
     deleteBtn.forEach(item => {
       item.addEventListener('click', () => {
         const idOfTag = item.parentElement.firstElementChild.textContent;
-        const currentData = zzz.findIndex(cher => {
+        const currentData = dataForDelete.findIndex(cher => {
           return cher.id == idOfTag;
         });
-        zzz = [...zzz.slice(0, currentData), ...zzz.slice(currentData + 1)];
+        dataForDelete = [
+          ...dataForDelete.slice(0, currentData),
+          ...dataForDelete.slice(currentData + 1),
+        ];
 
-        Storage.saveCompany(zzz);
-        this.displayData(zzz);
-        this.getFilltred(zzz);
+        Storage.saveCompany(dataForDelete);
+        this.displayData(dataForDelete);
+        this.getFilltred(dataForDelete);
       });
     });
   }
   openModalWithAdditinolInfo(data) {
-    let ccc =
+    let dataForAdditinolInfo =
       JSON.parse(localStorage.getItem('companies')) === null
         ? data
         : JSON.parse(localStorage.getItem('companies'));
@@ -224,7 +243,7 @@ class UI {
         });
         const idOfAdditinolInfo =
           item.parentElement.firstElementChild.textContent;
-        const currentObjForAdd = ccc.find(item => {
+        const currentObjForAdd = dataForAdditinolInfo.find(item => {
           return item['id'] == idOfAdditinolInfo;
         });
         const {
